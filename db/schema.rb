@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_29_104848) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_29_122337) do
+  create_table "projects", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "description"
+    t.string "public_id", null: false
+    t.string "user_private_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "image", null: false
+    t.index ["public_id"], name: "index_projects_on_public_id", unique: true
+    t.index ["user_private_id"], name: "index_projects_on_user_private_id"
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "private_id", null: false
     t.string "email", null: false

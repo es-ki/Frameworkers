@@ -1,6 +1,6 @@
 ## ER 図
 
-![er](https://github.com/user-attachments/assets/8ca7d2af-db3e-43fb-9231-4caac14eb226)
+![er](https://github.com/user-attachments/assets/3f5c657c-748d-490b-affd-8432e7b063cf)
 
 ## 画面遷移図
 
