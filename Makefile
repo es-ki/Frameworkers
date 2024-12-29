@@ -1,4 +1,4 @@
 .PHONY: dev
 
-dev:
-	rm -f tmp/pids/server.pid && rails server -b 0.0.0.0
+s:
+	rails s -b 0.0.0.0 -p 3001
