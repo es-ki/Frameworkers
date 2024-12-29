@@ -1,16 +1,20 @@
-FROM ruby:3.3.6
+FROM ruby:3.4.1
 ENV APP /app
 
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
-RUN apt update -qq \
- && apt install -y build-essential nodejs
+RUN apt update -qq && apt install -y build-essential
 
 WORKDIR $APP
 COPY Gemfile $APP/Gemfile
 COPY Gemfile.lock $APP/Gemfile.lock
 RUN bundle install
 
-COPY package.json package-lock.json ./
-RUN npm install
+COPY entrypoint.sh /usr/bin/entrypoint.sh
+RUN chmod +x /usr/bin/entrypoint.sh
 
 COPY . $APP
+
+EXPOSE 3001
+
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["rails", "server", "-b", "0.0.0.0", "-p", "3001"]
