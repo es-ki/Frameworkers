@@ -4,5 +4,5 @@ class Project < ApplicationRecord
   validates :user_private_id, presence: true, uniqueness: true
   validates :image, presence: true
 
-  belongs_to :user, foreign_key: 'user_private_id', primary_key: 'private_id'
+  belongs_to :user, foreign_key: "user_private_id", primary_key: "private_id"
 end
