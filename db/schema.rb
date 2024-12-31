@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_31_010517) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_31_085402) do
   create_table "projects", charset: "utf8mb4", collation: "utf8mb4_bin", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
@@ -27,7 +27,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_31_010517) do
     t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "uid", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
   add_foreign_key "projects", "users"
