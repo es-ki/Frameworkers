@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
+  match "/auth/:provider/callback", to: "sessions#create", via: %i[get post]
+  get "auth/failure", to: redirect("/")
+  get "signout", to: "sessions#destroy", as: "signout"
+
   # Defines the root path route ("/")
   root "home#index"
   resources :users, only: [ :show, :create, :update, :destroy ]
