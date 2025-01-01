@@ -9,11 +9,13 @@ class User < ApplicationRecord
   private
 
   def create_default_project
-    begin
-      projects.create!(name: "新規プロジェクト", image: "default.jpg")
-    rescue ActiveRecord::RecordInvalid => e
-      Rails.logger.error "プロジェクト作成失敗: #{e.message}"
-    end
+    projects.create!(name: "新規プロジェクト", image: "default.jpg")
+  rescue ActiveRecord::RecordNotSaved => e
+    ErrorUtility.logger(e, "ユーザー保存")
+    raise
+  rescue StandardError => e
+    ErrorUtility.logger e
+    raise
   end
 
   class << self
@@ -23,6 +25,12 @@ class User < ApplicationRecord
       user.assign_attributes(user_params)
       user.save!
       user
+    rescue ActiveRecord::RecordNotSaved => e
+      ErrorUtility.logger(e, "ユーザー保存")
+      raise
+    rescue StandardError => e
+      ErrorUtility.logger e
+      raise
     end
 
     private
