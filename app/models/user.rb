@@ -14,7 +14,7 @@ class User < ApplicationRecord
     ErrorUtility.logger(e, "ユーザー保存")
     raise
   rescue StandardError => e
-    ErrorUtility.logger e
+    ErrorUtility.logger(e)
     raise
   end
 
@@ -29,7 +29,7 @@ class User < ApplicationRecord
       ErrorUtility.logger(e, "ユーザー保存")
       raise
     rescue StandardError => e
-      ErrorUtility.logger e
+      ErrorUtility.logger(e)
       raise
     end
 
