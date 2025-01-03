@@ -13,11 +13,11 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: <%= ENV["DATABASE_URL"] %>
 
 development:
   <<: *default
   database: development
-  url: <%= ENV["DATABASE_URL"] %>/development?ssl_mode=verify_identity
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -25,7 +25,6 @@ development:
 test:
   <<: *default
   database: test
-  url: <%= ENV["DATABASE_URL"] %>/test?ssl_mode=verify_identity
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -51,7 +50,6 @@ production:
   primary: &primary_production
     <<: *default
     database: production
-    url: <%= ENV["DATABASE_URL"] %>/production?ssl_mode=verify_identity
   # username: app
   # password: <%= ENV["APP_DATABASE_PASSWORD"] %>
   cache:
