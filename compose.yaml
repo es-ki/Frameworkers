@@ -3,7 +3,6 @@ services:
     build:
       context: .
       dockerfile: "Dockerfile.dev"
-    command: bash -c "rm -f tmp/pids/server.pid && ./bin/dev"
     volumes:
       - .:/app
       - bundle_data:/usr/local/bundle:cached
