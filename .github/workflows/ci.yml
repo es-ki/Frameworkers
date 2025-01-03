@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Make bin directory executable
-        run: chmod -R +x bin/brakeman
-
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Make bin directory executable
+        run: chmod -R +x bin/
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -29,11 +29,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Make bin directory executable
-        run: chmod -R +x bin/importmap
-
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Make bin directory executable
+        run: chmod -R +x bin/
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -47,11 +47,11 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Make bin directory executable
-        run: chmod -R +x bin/rubocop
-
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Make bin directory executable
+        run: chmod -R +x bin/
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -81,14 +81,14 @@ jobs:
       #   options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - name: Make bin directory executable
-        run: chmod -R +x bin/rails
-
       - name: Install packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential default-libmysqlclient-dev git pkg-config chromium-browser
 
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Make bin directory executable
+        run: chmod -R +x bin/
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
