@@ -5,12 +5,5 @@ class Project < ApplicationRecord
   validates :image, presence: true
 
   belongs_to :user
-
-  before_create :generate_public_id
-
-  private
-
-  def generate_public_id
-    self.public_id = SecureRandom.uuid
-  end
+  has_many :swots, dependent: :destroy
 end

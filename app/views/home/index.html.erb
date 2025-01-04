@@ -1,8 +1,19 @@
 <div>
-  <h1>Test</h1>
+  <h1><%= ENV["APP_NAME"] %></h1>
   <% if current_user %>
     <%= link_to "サインアウト", signout_path %>
   <% else  %>
     <%= button_to "Googleでログイン", "/auth/google_oauth2", method: :post, data: { turbo: false } %>
   <% end %>
+  <h2>フレームワーク</h2>
+  <ul>
+    <% @frameworks["contents"].each do |framework| %>
+      <li>
+        <%= link_to "#{root_url}#{framework["id"]}" do %>
+          <strong><%= framework["name"] %></strong>
+          <span><%= framework["description"] %></span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 </div>

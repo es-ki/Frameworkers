@@ -17,4 +17,7 @@ Rails.application.routes.draw do
   root "home#index"
   resources :users, only: [ :show, :create, :update, :destroy ]
   resources :projects, only: [ :index, :show, :create, :update, :destroy ]
+
+  get "/swot", to: "frameworks#show", id: "swot"
+  post "/swot", to: "swots#create"
 end
