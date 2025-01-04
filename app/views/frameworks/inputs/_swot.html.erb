@@ -1,0 +1,61 @@
+<section class="swot">
+  <h2>SWOT分析の方法</h2>
+  <% if current_user %>
+    <% if analysis %>
+      <div>
+        <% analysis_items = { strength: "強み（Strength）", weakness: "弱み（Weakness）", opportunity: "機会（Opportunity）", threat: "脅威（Threat）", analysis: "分析" } %>
+        <% analysis_items.each do |key, label| %>
+          <dl>
+            <dt><%= label %></dt>
+            <dd><%= @analysis.send(key) %></dd>
+          </dl>
+        <% end %>
+        <div>
+          <label for="swot_public_id">プロジェクトを選択</label>
+          <%= select_tag "swot_public_id", options_for_select(
+          projects.map { |project| [project[:name], project[:public_id]] },
+          { selected: params[:pid].presence || projects.first[:public_id] }
+        ) %>
+          <%= link_to "分析を編集する", "#{root_url}" %>
+        </div>
+      </div>
+    <% else %>
+      <%= form_with model: Swot.new, url: swot_path, local: true do |form| %>
+        <% swot_items = { strength: "強み（Strength）", weakness: "弱み（Weakness）", opportunity: "機会（Opportunity）", threat: "脅威（Threat）" } %>
+        <% swot_items.each do |key, label| %>
+          <fieldset>
+            <%= form.label key, label %>
+            <%= form.text_area key %>
+          </fieldset>
+        <% end %>
+        <fieldset>
+          <%= form.label :analysis, "分析" %>
+          <%= form.text_area :analysis %>
+        </fieldset>
+        <fieldset>
+          <%= form.label :public_id, "プロジェクトを選択" %>
+          <%= form.select :public_id,
+            projects.map { |project| [project[:name], project[:public_id]] },
+            { selected: params[:pid].presence || projects.first[:public_id] }
+          %>
+          <%= button_tag '保存する', type: 'submit', id: "submit", data: { turbo: false } %>
+        </fieldset>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= button_to "Googleでログイン", "/auth/google_oauth2", method: :post, data: { turbo: false } %>
+  <% end %>
+  <%= content_for :js do %>
+    <script type="text/javascript">
+      function changeProject() {
+        const projects = <%= raw projects.to_json %>;
+        const project = projects.find(p => p.public_id == this.value);
+        if (!project) return
+
+        const currentUrl = window.location.href.split('?')[0].split('#')[0];
+        window.location.href = `${currentUrl}?pid=${project.public_id}#analysis`;
+      }
+      document.getElementById("swot_public_id").addEventListener("change", changeProject);
+    </script>
+  <% end %>
+</section>

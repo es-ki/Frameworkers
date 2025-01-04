@@ -1,0 +1,10 @@
+<div>
+  <h1><%= @framework["name"] %></h1>
+  <p><%= @framework["description"] %></p>
+</div>
+<div id="analysis">
+  <% if params[:id] == "swot" %>
+    <%= render 'frameworks/inputs/swot', projects: @projects, analysis: @analysis %>
+  <% end %>
+</div>
+<%= link_to "トップページ", root_url %>
